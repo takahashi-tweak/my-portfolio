@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>JavaScript Auto Battle Game</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <div class="vb">
+            <div class="vb-buy is-show">
+                <div class="vb-buy__goodsHeading">
+                    <p class="vb-buy__goodsTitle">商品LV:<span class="vb-buy__goodsLevel"></span></p>
+                    <div class="vb-buy__goodsUi">
+                        <p class="vb-buy__level"></p>
+                        <p class="vb-buy__change">商品更新</p>
+                        <p class="vb-buy__lock">ロック</p>
+                    </div>
+                </div>
+
+                <div id="buy_goods" class="vb-buy__goods"></div>
+
+                <div class="vb-buy__innerHeading">
+                    <p class="vb-buy__handTitle">手持ち</p>
+                    <p class="vb-buy__fieldTitle">編成</p>
+                </div>
+
+                <div class="vb-buy__inner">
+                    <div id="buy_hand" class="vb-buy__hand"></div>
+
+                    <div class="vb-buy__group">
+                        <div class="vb-buy__field">
+                            <div class="vb-battle__monsterArea"></div>
+                            <div class="vb-battle__monsterArea"></div>
+                            <div class="vb-battle__monsterArea"></div>
+                            <div class="vb-battle__monsterArea"></div>
+                            <div class="vb-battle__monsterArea"></div>
+                            <div class="vb-battle__monsterArea"></div>
+                        </div>
+
+                        <div class="vb-buy__ui">
+                            <p class="vb-buy__life"></p>
+                            <p class="vb-buy__money"></p>
+                            <div class="vb-buy__nextBattle">戦闘開始</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vb-battle">
+                <div class="vb-battle__ui">
+                    <div class="vb-battle__monsterImg vb-battle__monsterImg--enemy">
+                        <img src="img/bg.png" alt="">
+                        <p class="vb-battle__damage vb-battle__damage--enemy"></p>
+                    </div>
+                    <div class="vb-battle__monsterImg vb-battle__monsterImg--my">
+                        <img src="img/bg.png" alt="">
+                        <p class="vb-battle__damage vb-battle__damage--my"></p>
+                    </div>
+                    <div class="vb-battle__text">戦闘開始</div>
+                </div>
+                <div class="vb-battle__inner">
+                    <div id="enemy_field" class="vb-battle__enemyField">
+                        <div class="vb-battle__monsterArea vb-battle__monsterArea--reverse"></div>
+                        <div class="vb-battle__monsterArea vb-battle__monsterArea--reverse"></div>
+                        <div class="vb-battle__monsterArea vb-battle__monsterArea--reverse"></div>
+                        <div class="vb-battle__monsterArea vb-battle__monsterArea--reverse"></div>
+                        <div class="vb-battle__monsterArea vb-battle__monsterArea--reverse"></div>
+                        <div class="vb-battle__monsterArea vb-battle__monsterArea--reverse"></div>
+                    </div>
+
+                    <div id="my_field" class="vb-battle__myField">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="vb-explanation">
+            <ul class="vb-explanation__tabMenu">
+                <li class="vb-explanation__tabItem is-active">遊び方</li>
+                <li class="vb-explanation__tabItem ">モンスター一覧</li>
+            </ul>
+
+            <div class="vb-explanation__rule vb-explanation__tabList is-active">
+                <p class="vb-explanation__ruleTitle">基本ルール</p>
+                <ul class="vb-explanation__ruleList">
+                    <li>
+                        商品内のランダムで更新されるモンスターを利用し、強力な編成を組んで敵を倒し、ライフを最後まで残せば勝利となります。
+                    </li>
+                </ul>
+
+                <p class="vb-explanation__ruleTitle">金貨</p>
+                <ul class="vb-explanation__ruleList">
+                    <li>
+                        金貨はこのゲームで使われる通貨です。
+                    </li>
+                    <li>
+                        金貨はモンスターの購入、商店のレベルアップ、商店の更新に使用することができます。
+                    </li>
+                    <li>
+                        金貨は購入フェーズに入ったときに補給されます。購入1ターン目に4金貨、以降ターンが経過する毎に1金貨ずつ増加し、補給の最大上限は10金貨になります。
+                    </li>
+                    <li>
+                        余った金貨を次ターンに持ち越すことは出来ません。
+                    </li>
+                    <li>
+                        モンスターを1体購入する度に3金貨消費します。
+                    </li>
+                    <li>
+                        モンスターを1体売却する度に1金貨獲得します。
+                    </li>
+                </ul>
+
+                <p class="vb-explanation__ruleTitle">ターンとフェーズ</p>
+                <ul class="vb-explanation__ruleList">
+                    <li>
+                        このゲームはターン制で、1ターン中に、購入フェーズと戦闘フェーズの2つのフェーズに分けられます。
+                    </li>
+                    <li>
+                        購入フェーズは商店、手持ち、編成に関する操作が出来ます。
+                    </li>
+                    <li>
+                        戦闘フェーズは操作することが出来ず、戦闘ルールに則り自動で行われます。
+                    </li>
+                </ul>
+
+                <p class="vb-explanation__ruleTitle">商店</p>
+                <ul class="vb-explanation__ruleList">
+                    <li>
+                        商店からモンスターを手持ちに購入することが出来ます。1体購入する度に3金貨消費します。
+                    </li>
+                    <li>
+                        商店にモンスターを売却することが出来ます。1体売却する度に1金貨獲得します。
+                    </li>
+                    <li>
+                        商店にはレベルがあり、商店レベル以下のレアリティのモンスターが陳列されます。
+                    </li>
+                    <li>
+                        商店のレベルアップには金貨を使用します。商店レベルが高いほど使用する金貨が増加し、商店レベルの上限は6レベルです。
+                    </li>
+                    <li>
+                        商店に陳列するモンスターは3体で、商店レベルが2レベル、4レベル、6レベルに上がる毎に陳列するモンスターが1体ずつ増加します。
+                    </li>
+                    <li>
+                        商店のモンスターを更新することが出来ます。1度更新する度に1金貨消費します。
+                    </li>
+                    <li>
+                        商店のモンスターをロックすると、次ターンの購入フェーズまでキープできます。
+                    </li>
+                </ul>
+
+                <p class="vb-explanation__ruleTitle">手持ちと編成</p>
+                <ul class="vb-explanation__ruleList">
+                    <li>
+                        手持ちは最大上限10体まで所持することが出来ます。
+                    </li>
+                    <li>
+                        モンスターを手持ちから編成に移動させることは出来ますが、編成から手持ちに移動させることは出来ません。
+                    </li>
+                    <li>
+                        手持ちと編成で進化前の同じモンスターを3体集めると、3体を消費してそのモンスターの進化後を1体獲得します。
+                    </li>
+                </ul>
+
+                <p class="vb-explanation__ruleTitle">戦闘</p>
+                <ul class="vb-explanation__ruleList">
+                    <li>
+                        戦闘は自動で行われ、ターゲットに攻撃を行うが、ターゲットからも反撃される。
+                    </li>
+                    <li>
+                        ターゲットはDEFの数値が最も低いモンスターになり、そのモンスターが戦闘不能になるまでターゲットは変更されない。ターゲットが戦闘不能になると、生存しているモンスターの中でDEFの数値が最も低いモンスターが次のターゲットになる。
+                    </li>
+                    <li>
+                        編成の隊列が1,2,3を前列、4,5,6を後列とし、ターゲットが後列に配置され、かつ、その前（4のときは1）にモンスターが配置されていれば代わりに前のモンスターが攻撃を受ける。
+                    </li>
+                    <li>
+                        行動順はターン開始時のSPDの数値が高いモンスターから行動する。
+                    </li>
+                    <li>
+                        勝利で戦闘終了した場合、ライフは減らず次ターンの購入フェーズへ移行する。
+                    </li>
+                    <li>
+                        敗北で戦闘終了した場合、敵の生存モンスターの数だけライフを減らし、次ターンの戦闘フェーズで同じ敵ともう一度戦闘する。
+                    </li>
+                    <li>
+                        引分で戦闘終了した場合、ライフは減らず、次ターンの戦闘フェーズで同じ敵ともう一度戦闘する。
+                    </li>
+                    <li>
+                        生存モンスターの全てが専守防衛スキルを所持していた場合、引分として戦闘を終了させる。
+                    </li>
+                    <li>
+                        ダメージ量＝（ATK）^2 /（DEF）
+                    </li>
+                </ul>
+
+                <p class="vb-explanation__ruleTitle">スキル</p>
+                <ul class="vb-explanation__ruleList">
+                    <li>
+                        魔法攻撃：ターゲットが後列でも直接攻撃できる。ダメージ計算時にATKの代わりにINTが使用される。
+                    </li>
+                    <li>
+                        縦突：ターゲットの前後（1と4）を攻撃し、ターゲットの反撃しか受けない。攻撃ダメージが50%になる。ただし、スキル保持者の反撃ダメージは100%のまま。
+                    </li>
+                    <li>
+                        横薙：ターゲットの同列（1と2と3）を攻撃し、ターゲットの反撃しか受けない。攻撃ダメージが50%になる。ただし、スキル保持者の反撃ダメージは100%のまま。
+                    </li>
+                    <li>
+                        防御削減：ターゲットのDEFを15%カットした数値で攻撃する。
+                    </li>
+                    <li>
+                        専守防衛：攻撃することが出来ない（反撃は出来る）が、被ダメージが50%カットされる。
+                    </li>
+                    <li>
+                        守護：スキル保持者が前列のとき攻撃対象をスキル保持者にする。ただし、守護スキル保持者が複数いる場合隊列が手前のものが攻撃対象になる。
+                    </li>
+                    <li>
+                        回復：ターン終了時に生存モンスターのhpを回復する。回復量＝（MAXHP）*（√INT）/100
+                    </li>
+                    <li>
+                        活性：戦闘フェーズ開始時に同じカテゴリーの生存モンスターのATK,DEF,INT,SPDを上昇させる。ただし、白カテゴリーは他の4つ全ての活性に影響する。活性＝（√INT）/100 + 1
+                    </li>
+                </ul>
+            </div>
+
+            <div class="vb-explanation__monster vb-explanation__tabList">
+                <div class="vb-explanation__monsterList" data-rarity="1"></div>
+                <div class="vb-explanation__monsterList" data-rarity="2"></div>
+                <div class="vb-explanation__monsterList" data-rarity="3"></div>
+                <div class="vb-explanation__monsterList" data-rarity="4"></div>
+                <div class="vb-explanation__monsterList" data-rarity="5"></div>
+                <div class="vb-explanation__monsterList" data-rarity="6"></div>
+            </div>
+        </div>
+
+        <script src="js/enemy-data.js"></script>
+        <script src="js/monster-data.js"></script>
+        <script src="js/buy.js"></script>
+        <script src="js/battle.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>

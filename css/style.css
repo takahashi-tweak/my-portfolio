@@ -1,0 +1,707 @@
+@charset "UTF-8";
+/* reset */
+* {
+  box-sizing: border-box;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* 共通処理 */
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: "Inter", YuGothic, "Yu Gothic", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
+  line-height: 1.5;
+}
+
+a {
+  color: #000000;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
+}
+
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+.vb {
+  margin: 100px auto;
+  width: 1080px;
+  aspect-ratio: 16/9;
+  background-color: #251F17;
+  border: 2px solid #cccccc;
+}
+.vb-buy {
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.vb-buy.is-show {
+  display: block;
+}
+.vb-buy__goodsHeading {
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 4px solid #524d4d;
+  position: relative;
+}
+.vb-buy__goodsTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+.vb-buy__goodsUi {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 0 30px;
+}
+.vb-buy__level {
+  padding: 5px 10px;
+  color: #ffffff;
+  font-weight: 500;
+  background-color: #252e55;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px #000000;
+  cursor: pointer;
+}
+.vb-buy__level::before {
+  content: "LVUP:";
+}
+.vb-buy__change {
+  padding: 5px 10px;
+  color: #ffffff;
+  font-weight: 500;
+  background-color: #252e55;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px #000000;
+  cursor: pointer;
+}
+.vb-buy__lock {
+  padding: 5px 10px;
+  color: #ffffff;
+  font-weight: 500;
+  background-color: #252e55;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px #000000;
+  cursor: pointer;
+}
+.vb-buy__goods {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0 2%;
+  height: 30%;
+}
+.vb-buy__monster {
+  width: 15%;
+  height: 100%;
+  position: relative;
+  background-color: #000000;
+  cursor: -webkit-grab;
+  cursor: grab;
+  overflow: hidden;
+}
+.vb-buy__monster.evo {
+  background-color: #5c561a;
+}
+.vb-buy__monster.lock::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(60deg);
+  width: 40px;
+  height: 242px;
+  background-color: #a80f0f;
+  opacity: 0.7;
+  z-index: 1;
+}
+.vb-buy__monster.lock::after {
+  content: "LOCK";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-30deg);
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px #a80f0f;
+  opacity: 0.7;
+  z-index: 1;
+}
+.vb-buy__img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 35%;
+}
+.vb-buy__hp {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-weight: bold;
+  color: #ffffff;
+}
+.vb-buy__hp::before {
+  content: "HP";
+  display: block;
+  text-align: center;
+}
+.vb-buy__status {
+  position: absolute;
+  top: 60px;
+  left: 10px;
+  width: calc(100% - 20px);
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0 1.3333333333%;
+}
+.vb-buy__atk {
+  width: 24%;
+  text-align: center;
+  font-weight: bold;
+  color: #a80f0f;
+}
+.vb-buy__atk::before {
+  content: "ATK";
+  display: block;
+  text-align: center;
+}
+.vb-buy__def {
+  width: 24%;
+  text-align: center;
+  font-weight: bold;
+  color: #bdac14;
+}
+.vb-buy__def::before {
+  content: "DEF";
+  display: block;
+  text-align: center;
+}
+.vb-buy__int {
+  width: 24%;
+  text-align: center;
+  font-weight: bold;
+  color: #3789cc;
+}
+.vb-buy__int::before {
+  content: "INT";
+  display: block;
+  text-align: center;
+}
+.vb-buy__spd {
+  width: 24%;
+  text-align: center;
+  font-weight: bold;
+  color: #0fa80f;
+}
+.vb-buy__spd::before {
+  content: "SPD";
+  display: block;
+  text-align: center;
+}
+.vb-buy__skill {
+  position: absolute;
+  top: 110px;
+  left: 10px;
+  width: calc(100% - 20px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 4%;
+}
+.vb-buy__skill li {
+  width: 48%;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+.vb-buy__category {
+  position: absolute;
+  bottom: 4px;
+  left: 10px;
+  width: 16px;
+}
+.vb-buy__name {
+  position: absolute;
+  bottom: 0;
+  left: 36px;
+  font-weight: bold;
+  color: #ffffff;
+}
+.vb-buy__innerHeading {
+  height: 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.vb-buy__handTitle {
+  width: 49%;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+  border: 4px solid #524d4d;
+}
+.vb-buy__fieldTitle {
+  width: 49%;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+  border: 4px solid #524d4d;
+}
+.vb-buy__inner {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  height: 50%;
+}
+.vb-buy__hand {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  width: 49%;
+}
+.vb-buy__group {
+  width: 49%;
+}
+.vb-buy__field {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  height: 60%;
+  background-color: #3f3f3f;
+}
+.vb-buy__ui {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  height: 40%;
+}
+.vb-buy__life {
+  padding: 10px;
+  color: #ffffff;
+  font-weight: 500;
+  background-color: #9e274b;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px #000000;
+}
+.vb-buy__life::before {
+  content: "ライフ：";
+}
+.vb-buy__money {
+  padding: 10px;
+  color: #ffffff;
+  font-weight: 500;
+  background-color: #5c561a;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px #000000;
+}
+.vb-buy__money::before {
+  content: "金貨：";
+}
+.vb-buy__nextBattle {
+  padding: 30px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #252e55;
+  border-radius: 20px;
+  box-shadow: 0px 0px 10px #000000;
+  cursor: pointer;
+}
+
+.vb-battle {
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.vb-battle.is-show {
+  display: block;
+}
+.vb-battle__ui {
+  height: 70%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  position: relative;
+}
+.vb-battle__text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 4rem;
+  color: #ffffff;
+  font-weight: bold;
+  text-shadow: 0px 0px 4px #a80f0f;
+}
+.vb-battle__monsterImg {
+  width: 49%;
+  padding: 13%;
+  position: relative;
+}
+.vb-battle__damage {
+  position: absolute;
+  top: 13%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3rem;
+  color: #a80f0f;
+  font-weight: bold;
+  text-shadow: 0px 0px 2px #ffffff;
+}
+.vb-battle__inner {
+  height: 30%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+}
+.vb-battle__enemyField {
+  width: 49%;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  background-color: #3f3f3f;
+}
+.vb-battle__myField {
+  width: 49%;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  background-color: #3f3f3f;
+}
+.vb-battle__monsterArea:nth-of-type(1) {
+  grid-row: 1/2;
+  grid-column: 1/2;
+  background: no-repeat;
+  background-size: cover;
+  background-image: url(../img/monsterArea1.png);
+}
+.vb-battle__monsterArea:nth-of-type(2) {
+  grid-row: 2/3;
+  grid-column: 1/2;
+  background: no-repeat;
+  background-size: cover;
+  background-image: url(../img/monsterArea2.png);
+}
+.vb-battle__monsterArea:nth-of-type(3) {
+  grid-row: 3/4;
+  grid-column: 1/2;
+  background: no-repeat;
+  background-size: cover;
+  background-image: url(../img/monsterArea3.png);
+}
+.vb-battle__monsterArea:nth-of-type(4) {
+  grid-row: 1/2;
+  grid-column: 2/3;
+  background: no-repeat;
+  background-size: cover;
+  background-image: url(../img/monsterArea4.png);
+}
+.vb-battle__monsterArea:nth-of-type(5) {
+  grid-row: 2/3;
+  grid-column: 2/3;
+  background: no-repeat;
+  background-size: cover;
+  background-image: url(../img/monsterArea5.png);
+}
+.vb-battle__monsterArea:nth-of-type(6) {
+  grid-row: 3/4;
+  grid-column: 2/3;
+  background: no-repeat;
+  background-size: cover;
+  background-image: url(../img/monsterArea6.png);
+}
+.vb-battle__monsterArea--reverse:nth-of-type(1) {
+  grid-column: 2/3;
+}
+.vb-battle__monsterArea--reverse:nth-of-type(2) {
+  grid-column: 2/3;
+}
+.vb-battle__monsterArea--reverse:nth-of-type(3) {
+  grid-column: 2/3;
+}
+.vb-battle__monsterArea--reverse:nth-of-type(4) {
+  grid-column: 1/2;
+}
+.vb-battle__monsterArea--reverse:nth-of-type(5) {
+  grid-column: 1/2;
+}
+.vb-battle__monsterArea--reverse:nth-of-type(6) {
+  grid-column: 1/2;
+}
+.vb-battle__monster {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+.vb-battle__monster.evo {
+  background-color: #5c561a;
+}
+.vb-battle__img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 35%;
+  height: 100%;
+}
+.vb-battle__img--reverse {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 35%;
+  height: 100%;
+}
+.vb-battle__hp {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  font-weight: bold;
+  color: #ffffff;
+}
+.vb-battle__hp--reverse {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  font-weight: bold;
+  color: #ffffff;
+}
+.vb-battle__status {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  width: 60%;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0 1.3333333333%;
+}
+.vb-battle__status--reverse {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 60%;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0 1.3333333333%;
+}
+.vb-battle__atk {
+  width: 24%;
+  text-align: center;
+  font-weight: bold;
+  color: #a80f0f;
+}
+.vb-battle__def {
+  width: 24%;
+  text-align: center;
+  font-weight: bold;
+  color: #bdac14;
+}
+.vb-battle__int {
+  width: 24%;
+  text-align: center;
+  font-weight: bold;
+  color: #3789cc;
+}
+.vb-battle__spd {
+  width: 24%;
+  text-align: center;
+  font-weight: bold;
+  color: #0fa80f;
+}
+.vb-battle__skill {
+  position: absolute;
+  bottom: 24px;
+  left: 10px;
+  width: calc(100% - 20px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 4%;
+}
+.vb-battle__skill [data-skill] {
+  width: 48%;
+  font-weight: bold;
+  color: #ffffff;
+}
+.vb-battle__category {
+  position: absolute;
+  bottom: 4px;
+  left: 10px;
+  width: 16px;
+}
+.vb-battle__category--reverse {
+  position: absolute;
+  bottom: 4px;
+  right: 10px;
+  width: 16px;
+}
+.vb-battle__name {
+  position: absolute;
+  bottom: 0;
+  left: 36px;
+  font-weight: bold;
+  color: #ffffff;
+}
+.vb-battle__name--reverse {
+  position: absolute;
+  bottom: 0;
+  right: 36px;
+  font-weight: bold;
+  color: #ffffff;
+}
+.vb-battle__value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2.5rem;
+  color: #ffffff;
+  font-weight: bold;
+  text-shadow: 0px 0px 5px #a80f0f;
+}
+.vb-battle__value.heal {
+  text-shadow: 0px 0px 4px #0fa80f;
+}
+.vb-battle__detail {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  box-shadow: 0 0 6px #ffffff;
+  display: none;
+  z-index: 10;
+}
+.vb-battle__detail.is-show {
+  display: block;
+}
+.vb-battle__detail .vb-buy__monster {
+  width: 100%;
+  height: 100%;
+}
+
+.vb-explanation {
+  margin: 0 auto;
+  width: 1080px;
+}
+.vb-explanation__tabMenu {
+  display: flex;
+}
+.vb-explanation__tabItem {
+  width: 50%;
+  padding: 10px;
+  font-size: 2rem;
+  text-align: center;
+  background-color: #cccccc;
+  cursor: pointer;
+}
+.vb-explanation__tabItem.is-active {
+  color: #ffffff;
+  background-color: #252e55;
+}
+.vb-explanation__tabList {
+  display: none;
+}
+.vb-explanation__tabList.is-active {
+  display: block;
+}
+.vb-explanation__rule {
+  padding: 10px 0;
+}
+.vb-explanation__ruleTitle {
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 10px;
+  font-size: 1.6rem;
+  color: #ffffff;
+  text-align: center;
+  background-color: #3789cc;
+}
+.vb-explanation__ruleList {
+  margin-bottom: 20px;
+  list-style: disc inside;
+}
+.vb-explanation__ruleList li {
+  margin-bottom: 10px;
+}
+.vb-explanation__ruleList li:last-child {
+  margin-bottom: 0;
+}
+.vb-explanation__monster {
+  padding: 10px 0;
+}
+.vb-explanation__monsterList {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 2%;
+}
+.vb-explanation__monsterList .vb-buy__monster {
+  height: 181.05px;
+  cursor: auto;
+}
+.vb-explanation__monsterRarity {
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 10px;
+  font-size: 1.6rem;
+  color: #ffffff;
+  text-align: center;
+  background-color: #3789cc;
+}
+/*# sourceMappingURL=style.css.map */
