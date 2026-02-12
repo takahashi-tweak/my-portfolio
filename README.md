@@ -1,5 +1,10 @@
 # JavaScript Auto Battle Game
 
+🔗 **デモサイトはこちら**  
+https://tweakhp.xsrv.jp  
+
+---
+
 ## 概要
 JavaScriptの学習成果として制作した、オートバトル形式のブラウザゲームです。
 
